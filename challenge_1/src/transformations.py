@@ -1,4 +1,6 @@
-from challenge_1.src.models import User, Occupation, UserWithOccupation
+import requests
+
+from challenge_1.src.models import User, Occupation, UserWithOccupation, ExampleArticle
 
 
 def transform_raw_data_into_user(data: dict) -> User:
@@ -36,3 +38,12 @@ def transform_raw_data_into_user_and_occupation(
         is_cool=user.is_cool,
         occupation=occupation
     )
+
+
+def get_article(id: str):
+    return requests.get(f"https://hn.algolia.com/api/v1/items/{id}")
+
+
+def get_article_one_thousand() -> ExampleArticle:
+    response = get_article("1000")
+    return ExampleArticle(**response.json())

@@ -1,8 +1,9 @@
 This challenge is focusing around the ability to write proper unit tests.
 
-In the src directory you'll find some basic functions that manipulate date.
+In the src directory you'll find some basic functions that get, model, and manipulate date.
 
-Your goal for this challenge is to write tests that cover the 3 functions inside of the ./challenge_1/src/transformations.py file
+Your goal for this challenge is to write tests that cover all functions inside of the ./challenge_1/src/transformations.py file
+without needing to call or use any external dependencies. (This means your code should run without an internet connection!)
 
 You can run your tests by using pipenv and the following command
 

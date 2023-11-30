@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 
 
@@ -14,3 +15,15 @@ class Occupation(BaseModel):
 
 class UserWithOccupation(User):
     occupation: Occupation
+
+
+class ExampleArticle(BaseModel):
+    author: str
+    title: str
+    type: str
+    url: str
+    children: list
+    created_at: datetime
+    id: int
+    parent_id: int | None
+    points: int
