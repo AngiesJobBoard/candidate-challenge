@@ -2,9 +2,11 @@ from challenge_1.src.transformations import (
     transform_raw_data_into_user,
     transform_raw_data_into_occupation,
     transform_raw_data_into_user_and_occupation,
-    get_article,
     get_article_one_thousand
 )
+import unittest
+from unittest.mock import patch, MagicMock
+
 
 def test_create_user():
     data = {
@@ -52,15 +54,37 @@ def test_create_user_occupation():
 
 
 
-def test_get_article_one_thousand():
-    article = get_article_one_thousand()
+class test_get_one_article_one_thousand(unittest.TestCase):
 
-    assert article.author == "python_kiss"
-    assert article.title == "How Important is the .com TLD?"
-    assert article.type == "story"
-    assert article.url == "http://www.netbusinessblog.com/2007/02/19/how-important-is-the-dot-com/"
-    assert article.children == []
-    assert str(article.created_at) == "2007-02-25 09:10:46+00:00" 
-    assert article.id == 1000
-    assert article.parent_id == None
-    assert article.points == 4
+    @patch('challenge_1.src.transformations.requests.get')
+    def test_get_article_one_thousand(self, mock_get):
+        
+        reponse = MagicMock()
+        reponse.json.return_value = {
+            "author": "python_kiss",
+            "title": "How Important is the .com TLD?",
+            "type": "story",
+            "url": "http://www.netbusinessblog.com/2007/02/19/how-important-is-the-dot-com/",
+            "children": [],
+            "created_at": "2007-02-25T09:10:46Z",
+            "id": 1000,
+            "parent_id": None,
+            "points": 4
+        }
+        mock_get.return_value = reponse
+
+        article = get_article_one_thousand()
+
+        self.assertEqual(article.author, "python_kiss")
+        self.assertEqual(article.title, "How Important is the .com TLD?")
+        self.assertEqual(article.type, "story")
+        self.assertEqual(article.url, "http://www.netbusinessblog.com/2007/02/19/how-important-is-the-dot-com/")     
+        self.assertEqual(article.children, [])
+        #print("Actual created_at format:", article.created_at)
+        self.assertEqual(str(article.created_at), "2007-02-25 09:10:46+00:00") 
+        self.assertEqual(article.id, 1000)
+        self.assertIsNone(article.parent_id)
+        self.assertEqual(article.points, 4)
+
+if __name__ == '__main__':
+    unittest.main()
