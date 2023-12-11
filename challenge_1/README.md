@@ -13,7 +13,10 @@ which will show you the results of your tests.
 
 It's up to you how many tests to write, what edge cases, success and failure cases to write.
 
-When you've completed the challenge, please create a pull request in this code repository with your submission.
+When you've completed the challenge, please email the link to your forked repository back to 
+
+`mike@shancorps.com`
+
 You should name your branch with the following pattern:
 
 challengeSubmission/{lastName}
